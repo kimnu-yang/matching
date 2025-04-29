@@ -1,0 +1,9 @@
+rootProject.name = 'matching'
+include 'module-api'
+include 'common:module-storage'
+findProject(':common:module-storage')?.name = 'module-storage'
+include 'common:module-domain'
+findProject(':common:module-domain')?.name = 'module-domain'
+include 'common:module-utils'
+findProject(':common:module-utils')?.name = 'module-utils'
+

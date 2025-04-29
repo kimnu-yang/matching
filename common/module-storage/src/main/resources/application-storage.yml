@@ -1,0 +1,35 @@
+spring:
+  # Database
+  datasource:
+    hikari:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbcUrl: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_DATABASE}?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true
+      username: ${DB_USERNAME}
+      password: ${DB_PASSWORD}
+      connection-timeout: 3000
+      validation-timeout: 3000
+      minimum-idle: 5
+      idle-timeout: 10000
+      max-lifetime: 240000
+      maximum-pool-size: 1000
+  # JPA
+  jpa:
+    open-in-view: false
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+        highlight_sql: true
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQLDialect
+  # SQL
+  sql:
+    init:
+      encoding: UTF-8
+      schema-locations: classpath:db/schema.sql
+#      data-locations: classpath:db/data.sql
+      mode: always

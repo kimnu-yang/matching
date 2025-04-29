@@ -1,0 +1,67 @@
+server:
+  shutdown: GRACEFUL
+  port: ${API_PORT}
+  # access log 설정
+  tomcat:
+    basedir: ./
+    accesslog:
+      enabled: true
+      directory: logs/api/access
+      pattern: ${LOG_ACCESS_PATTERN}
+  error:
+    # 에러 결과 trace, message, exception, error 포함하지 않음
+    include-binding-errors: never
+    include-stacktrace: never
+    include-message: never
+    include-exception: false
+    path: /error
+  servlet:
+    encoding:
+#      force-response: true
+      charset: UTF-8
+      enabled: true
+      force: true
+
+spring:
+  # 어플리케이션 서로 영향 주지 않음
+  devtools:
+    livereload:
+      enabled: false
+  # .env import
+  config:
+    import:
+      - optional:file:env/main.env[.properties]
+  profiles:
+    include:
+      - storage
+      - domain
+      - utils
+  application:
+    # 프로젝트명
+    name: matching
+  output:
+    # 로그 색상
+    ansi:
+      enabled: always
+
+# Logging
+logging:
+  # 로그 파일 경로 지정
+  config: classpath:log/log4j2.xml
+
+# Swagger
+springdoc:
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+  api-docs:
+    groups:
+      enabled: true
+  swagger-ui:
+    operations-sorter: alpha # alpha(알파벳 오름차순), method(HTTP메소드순)
+    tags-sorter: alpha # 태그 정렬 기준
+    path: /swagger # html 문서 접속 경로
+    disable-swagger-default-url: true
+    display-query-params-without-oauth2: true
+    doc-expansion: list # tag, operation 펼치는 방식
+  paths-to-match:
+    - /**

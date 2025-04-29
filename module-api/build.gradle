@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+}
+
+bootJar {enabled = true}
+jar {enabled = false}
+
+group = 'com.matching'
+version = 'unspecified'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':common:module-domain')
+    implementation project(':common:module-storage')
+    implementation project(':common:module-utils')
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+
+    // swagger API view
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
+}
+
+test {
+    useJUnitPlatform()
+}

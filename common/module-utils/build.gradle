@@ -1,0 +1,10 @@
+bootJar {enabled = false}
+jar {enabled = true}
+
+dependencies {
+    // http status 사용
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // otp 사용
+    implementation 'commons-codec:commons-codec:1.17.0'
+}

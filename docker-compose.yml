@@ -1,0 +1,32 @@
+services:
+  mysql:
+    image: mysql:8.0.22
+    container_name: mysql
+    env_file:
+      - ./env/main.env
+    environment:
+      - TZ=Asia/Seoul
+      - MYSQL_ROOT_HOST=${DB_HOST}
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${DB_DATABASE}
+    ports:
+      - 3306:3306
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./data/db/conf.d:/etc/mysql/conf.d
+      - ./data/db/data:/var/lib/mysql
+      - ./data/db/initdb.d:/docker-entrypoint-initdb.d
+    restart: always
+
+  app:
+    image: app
+    container_name: app
+    build: .
+    environment:
+      - TZ=Asia/Seoul
+    ports:
+      - 8080:8080
+    depends_on:
+      - mysql
